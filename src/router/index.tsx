@@ -8,8 +8,8 @@ export default function AppRouter() {
     <Routes>
       <Route path="/" element={<RootLayout />}>
         <Route index element={<HomePage />} />
-        <Route path="/dashboard" element={<HomePage />} />
-        <Route path="/inventory" element={<HomePage />} />
+        <Route path="/about" element={<HomePage />} />
+        <Route path="/contact" element={<HomePage />} />
       </Route>
       <Route path="*" element={<ExtendedError statusCode={404} />} />
     </Routes>

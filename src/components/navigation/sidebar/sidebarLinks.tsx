@@ -20,7 +20,7 @@ export const SidebarLink = ({
       to={link.href}
       aria-label={link.label}
       className={({isActive, isPending, isTransitioning}) =>
-        cn("flex items-center justify-start gap-2 group/sidebar py-2", isPending ? '' : isActive ? '' : isTransitioning ? '' : '')
+        cn("flex items-center justify-start gap-2 group/sidebar py-2 bg-white rounded-md px-2", isPending ? 'bg-green-500' : isActive ? 'bg-green-400/70' : isTransitioning ? '' : '')
       }
       {...props}
     >

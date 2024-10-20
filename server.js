@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import express from "express";
 import { Transform } from "node:stream";
 
-const isProduction = true;
+const isProduction = false;
 // const isProduction = process.env.NODE_ENV === "production";
 const port = process.env.PORT || 5111;
 const base = process.env.BASE || "/";

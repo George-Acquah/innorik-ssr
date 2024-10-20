@@ -6,23 +6,23 @@ import {
 
 export const sidebarLinks: _ILinks[] = [
   {
-    label: "Dashboard",
-    href: "/dashboard",
+    label: "Home",
+    href: "/",
     icon: (
       <CodeBracketIcon className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
     ),
   },
   {
-    label: "Inventory",
-    href: "/dashboard/inventory",
-    parent: "Tables",
+    label: "About",
+    href: "/about",
+    // parent: "Tables",
     icon: (
       <BriefcaseIcon className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
     ),
   },
   {
-    label: "Transactions",
-    href: "/dashboard/transactions",
+    label: "Contact",
+    href: "/contact",
     icon: (
       <UsersIcon className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
     ),
