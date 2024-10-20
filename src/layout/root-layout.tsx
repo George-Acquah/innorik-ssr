@@ -1,18 +1,9 @@
-import { FC, useState, useEffect } from "react";
+import { FC } from "react";
 import { cn, THEME } from "../utils";
 import { Outlet } from "react-router-dom";
 import { Sidebar } from "@/components/navigation";
 
 const Layout: FC = () => {
-  const [hydrated, setHydrated] = useState(false);
-
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
-
-  if (!hydrated) {
-    return null;
-  }
 
   return (
     <div

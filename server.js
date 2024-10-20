@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import express from "express";
 import { Transform } from "node:stream";
 
-const isProduction = false;
+const isProduction = true;
 // const isProduction = process.env.NODE_ENV === "production";
 const port = process.env.PORT || 5111;
 const base = process.env.BASE || "/";
@@ -80,7 +80,6 @@ app.use("*all", async (req, res) => {
 
         const [htmlStart, htmlEnd] = template.split(`<!--app-html-->`);
 
-        // Insert dynamic meta tags into the head section
         const headTags = `
           <title>${metaTags.title}</title>
           <meta name="description" content="${metaTags.description}">
