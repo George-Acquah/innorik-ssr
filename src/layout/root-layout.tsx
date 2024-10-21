@@ -1,10 +1,14 @@
-import { FC } from "react";
+import { FC, lazy, Suspense } from "react";
 import { cn, THEME } from "../utils";
 import { Outlet } from "react-router-dom";
 import { Sidebar } from "@/components/navigation";
+import { SearchSkeleton } from "../components";
 
+// Use named import for Search
+const Search = lazy(() =>
+  import("../components").then((mod) => ({ default: mod.Search })),
+);
 const Layout: FC = () => {
-
   return (
     <div
       className={cn(
@@ -20,7 +24,9 @@ const Layout: FC = () => {
           className={`p-2 md:px-10 rounded-tl-2xl border border-neutral-200 dark:border-neutral-700 ${THEME.mainBg} min-h-full flex flex-col gap-2`}
         >
           <div className="md:mb-4 flex flex-row justify-between items-center">
-            
+            <Suspense fallback={ <SearchSkeleton />}>
+              <Search entityType="QUERY" />
+            </Suspense>
           </div>
           <Outlet />
         </div>

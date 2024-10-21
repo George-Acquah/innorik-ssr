@@ -1,20 +1,19 @@
-import { Suspense, lazy } from "react";
-
-const Card = lazy(() => import("../../Card"));
+import { Button, Typography } from "@/components";
+import { NavLink } from "react-router-dom";
 
 function HomePage() {
   return (
-    <div className="flex gap-4 flex-col md:flex-row">
-      <div className="w-full lg:w-2/3 flex flex-col gap-8">
-        <h1>Vite + React</h1>
-      </div>
-
-      <div className="w-full lg:w-1/3 flex flex-col gap-8">
-        <Suspense fallback={<p>Loading card component...</p>}>
-          <Card />
-        </Suspense>
-
-        <p>Click on the Vite and React logos to learn more</p>
+    <div className="flex gap-4 flex-col min-h-screen justify-center items-center">
+      <Typography variant="h4">Welcome to Proj Dashbard</Typography>
+      <div className="flex flex-col gap-8 justify-center items-center">
+        <Typography variant="span">
+          Click on the button below to go to the dashboard
+        </Typography>
+        <NavLink to={"/dashboard"} className={''}>
+          <Button variant="default" size="sm" className="px-8">
+            Dashboard
+          </Button>
+        </NavLink>
       </div>
     </div>
   );

@@ -12,22 +12,29 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
+    "@types/react": "npm:types-react@rc",
+    "@types/react-dom": "npm:types-react-dom@rc",
     "@vitejs/plugin-react": "^4.3.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "compression": "^1.7.4",
     "express": "^5.0.1",
     "react": "19.0.0-rc-b8ae38f8-20241018",
+    "react-calendar": "^5.0.0",
     "react-dom": "19.0.0-rc-b8ae38f8-20241018",
     "react-router-dom": "^6.27.0",
+    "recharts": "^2.13.0",
     "sirv": "^3.0.0",
-    "tailwind-merge": "^2.5.4"
+    "tailwind-merge": "^2.5.4",
+    "use-debounce": "^10.0.4"
+  },
+  "overrides": {
+    "@types/react": "npm:types-react@rc",
+    "@types/react-dom": "npm:types-react-dom@rc"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/node": "^22.7.5",
-    "@types/react": "^18.3.11",
-    "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react-swc": "^3.7.1",
     "autoprefixer": "^10.4.20",
     "babel-plugin-react-compiler": "^19.0.0-beta-9ee70a1-20241017",

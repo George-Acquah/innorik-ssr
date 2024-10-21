@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import express from "express";
 import { Transform } from "node:stream";
 
-const isProduction = false;
+const isProduction = true;
 // const isProduction = process.env.NODE_ENV === "production";
 const port = process.env.PORT || 5111;
 const base = process.env.BASE || "/";
@@ -43,7 +43,7 @@ if (!isProduction) {
 // Handle all routes with the SSR setup
 app.use("*all", async (req, res) => {
   try {
-    const url = req.originalUrl.replace(base, "");
+    const url = req.originalUrl;
 
     let template;
     let render;
