@@ -5,6 +5,14 @@ interface _ILinks {
   parent?: string;
 }
 
+interface _IBlog {
+  id: number;
+  title: string;
+  content: string;
+  tags: string[];
+  category?: string;
+}
+
 interface _IChildren {
   children: React.ReactNode;
 }

@@ -19,7 +19,7 @@ export function render(
   options?: RenderToPipeableStreamOptions,
   renderProps?: _IRenderProps
 ) {
-  const { path, statusCode } = renderProps || {};
+  const { statusCode } = renderProps || {};
 
   if (statusCode) {
     return renderToPipeableStream(<ExtendedError statusCode={statusCode} />);
@@ -28,7 +28,7 @@ export function render(
   // Normal rendering logic for SSR with StaticRouter
   return renderToPipeableStream(
     <StrictMode>
-      <StaticRouter location={path ?? ""}>
+      <StaticRouter location={_url}>
         <ConfiguratorProvider>
           <AppRouter />
         </ConfiguratorProvider>

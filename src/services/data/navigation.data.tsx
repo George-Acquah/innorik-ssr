@@ -13,6 +13,13 @@ export const sidebarLinks: _ILinks[] = [
     ),
   },
   {
+    label: "Blogs",
+    href: "/blogs",
+    icon: (
+      <CodeBracketIcon className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+    ),
+  },
+  {
     label: "About",
     href: "/about",
     // parent: "Tables",
