@@ -1,4 +1,3 @@
-"use client";
 import { RadialBarChart, RadialBar, ResponsiveContainer } from "recharts";
 import {
   Typography,
@@ -37,7 +36,7 @@ const data = (theme: string = "light") => [
 const CountChart = () => {
   // const { theme } = useTheme();
 
-  const theme: 'light' | 'dark' | any = 'light';
+  const theme: "light" | "dark" | any = "light";
   // Extracting data for easier access
   const chartData = data(theme);
   const total = chartData[0].count; // Total projects
@@ -47,18 +46,20 @@ const CountChart = () => {
       {/* TITLE */}
       <ChartHeader headerElipses headerTitle="Projects" />
       {/* CHART */}
-      <ChartContent>
-        <ResponsiveContainer>
+      <ChartContent className="h-2/3">
+        <ResponsiveContainer width="100%" height={"50%"}>
           <RadialBarChart
             cx="50%"
-            cy="50%"
+            cy="40%"
             innerRadius="40%"
             outerRadius="100%"
+            height={300}
+            width={250}
             barSize={32}
             data={chartData}
           >
             <RadialBar
-              dataKey="count"
+              dataKey='count'
               background={{ fill: theme === "dark" ? "#404040" : "#FFF" }}
             />
           </RadialBarChart>
@@ -72,16 +73,18 @@ const CountChart = () => {
         />
       </ChartContent>
       {/* BOTTOM */}
-      <ChartFooter className="gap-5">
+      <ChartFooter className="gap-2 flex flex-col flex-1">
         {chartData.slice(1).map((item) => (
-          <div key={item.name} className="flex flex-col">
-            <div
-              className="w-5 h-5 rounded-full"
-              style={{ backgroundColor: item.fill }}
-            />
-            <Typography variant="h1" className="text-lg">
-              {item.count}
-            </Typography>
+          <div className="flex justify-between items-center">
+            <div className="flex justify-start items-center gap-2">
+              <div
+                className="w-5 h-5 rounded-full"
+                style={{ backgroundColor: item.fill }}
+              />
+              <Typography variant="h1" className="text-lg">
+                {item.count}
+              </Typography>
+            </div>
             <Typography
               variant="h4"
               className="text-xs text-neutral-400 dark:text-neutral-400"

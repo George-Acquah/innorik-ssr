@@ -78,11 +78,11 @@ const FinanceChart = () => {
   // const { theme } = useTheme();
     const theme: "light" | "dark" | any = "light";
   return (
-    <Chart className="rounded-xl w-full h-full p-4">
+    <Chart className="rounded-xl">
       <ChartHeader headerElipses headerTitle="Revenue" />
-      <ResponsiveContainer width="100%" height="90%">
+      <ResponsiveContainer width={ 850} height={"100%"}>
         <LineChart
-          width={680}
+          width={850}
           height={420}
           data={data}
           margin={{
@@ -91,6 +91,7 @@ const FinanceChart = () => {
             left: 20,
             bottom: 5,
           }}
+          
         >
           <CartesianGrid
             strokeDasharray="3 3"

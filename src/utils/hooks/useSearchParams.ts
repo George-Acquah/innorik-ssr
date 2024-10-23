@@ -5,7 +5,7 @@ const useSearch = () => {
   const [searchParams, setSearchParam] = useSearchParams();
 
   const serialize = (key: string, value?: string) => {
-    const params = new URLSearchParams();
+    const params = new URLSearchParams(searchParams);
     if (value) {
       params.set(key, value);
     } else {

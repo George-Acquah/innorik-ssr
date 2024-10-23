@@ -14,7 +14,7 @@ const DashboardPage = () => {
           ))}
         </div>
         {/* Analytics */}
-        <div className="flex gap-4 flex-col lg:flex-row">
+        <div className="flex gap-4 flex-col lg:flex-row overflow-hidden">
           <div className="w-full lg:w-1/3 h-[450px]">
             <CountChart />
           </div>
@@ -23,7 +23,7 @@ const DashboardPage = () => {
           </div>
         </div>
         {/* BOTTOM CHART */}
-        <div className="w-full h-[500px]">
+        <div className="w-full h-[500px] overflow-hidden">
           <FinanceChart />
         </div>
       </div>

@@ -96,20 +96,20 @@ export function formatNumber(number: number, decPlaces: number) {
   return stringNumber;
 }
 
-// export const getTableBooleanFields = (item: _TableRowType) => {
-//   return Object.keys(item).filter((key) => typeof item[key] === "boolean");
-// };
+export const getTableBooleanFields = (item: _TableRowType) => {
+  return Object.keys(item).filter((key) => typeof item[key] === "boolean");
+};
 
-// export const groupFieldConfigs = (fields: _ICommonFieldProps[]) => {
-//   return fields.reduce((groups, field) => {
-//     const group = field.group || "default"; // Use 'default' if no group is specified
-//     if (!groups[group]) {
-//       groups[group] = [];
-//     }
-//     groups[group].push(field);
-//     return groups;
-//   }, {} as Record<string, _ICommonFieldProps[]>);
-// };
+export const groupFieldConfigs = (fields: _IDetail[]) => {
+  return fields.reduce((groups, field) => {
+    const group = field.group || "default"; // Use 'default' if no group is specified
+    if (!groups[group]) {
+      groups[group] = [];
+    }
+    groups[group].push(field);
+    return groups;
+  }, {} as Record<string, _IDetail[]>);
+};
 
 
 export function formatKey(key: string) {

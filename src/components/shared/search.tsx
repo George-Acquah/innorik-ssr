@@ -26,9 +26,7 @@ export function Search<T extends SearchParamKeys>({
   const [params, pathname, serialize] = useSearch();
 
   const handleSearch = useDebouncedCallback((term: string) => {
-    // Set search params and log them
     const updatedParams = serialize(SEARCH_PARAMS[entityType], term);
-    console.log(updatedParams.toString()); // Log updated params
 
     startTransition(() => {
       replace(`${pathname}?${updatedParams.toString()}`);

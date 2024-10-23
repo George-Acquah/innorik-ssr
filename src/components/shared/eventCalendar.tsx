@@ -34,12 +34,15 @@ const EventCalendar = () => {
   const [value, onChange] = useState<Value>(new Date());
 
   return (
-    <Calendar className={`${THEME.secBg} p-4 rounded-md`}>
+    <Calendar
+      className={`${THEME.secBg} p-4 rounded-md`}
+      style={{ width: "100%", maxWidth: "400px"}}
+    >
       <ReactCalendar
         onChange={onChange}
         value={value}
         tileClassName={"dark:hover:!bg-neutral-700"}
-        className={`!bg-neutral-100 dark:!bg-neutral-800 p-4`}
+        className="!bg-neutral-100 dark:!bg-neutral-800 p-4"
       />
       <CalendarHeader headerElipses headerTitle="Events" className="my-4" />
       <CalendarContent>

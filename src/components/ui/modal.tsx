@@ -1,9 +1,9 @@
-import { cn } from "@/utils/classes.utils";
+import { cn } from "@/utils";
 import { useModal } from "@/utils/contexts/modal.context";
 import { useOutsideClick } from "@/utils/hooks/useOutsideClick";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { useRouter } from "next/navigation";
-import React, { ReactNode, useEffect, useRef, useCallback } from "react";
+import { ReactNode, useEffect, useRef, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const ModalTrigger = ({
   children,
@@ -48,13 +48,14 @@ export const ModalBody = ({
 }) => {
   const { isOpen, setOpen } = useModal();
   const modalRef = useRef(null);
-  const router = useRouter();
+  const router = useNavigate();
+  const goBack = () => router(-1);
 
   // Internal closeModal function if parent doesn't provide one
   const internalCloseModal = useCallback(() => {
-    setOpen(modalKey, false); // Close the modal with the given key
+    setOpen(modalKey, false);
     if (intercepted) {
-      router.back(); // Navigate back if intercepted
+      goBack();
     }
   }, [intercepted, modalKey, router, setOpen]);
 

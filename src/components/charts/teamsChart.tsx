@@ -33,16 +33,16 @@ const teamData = [
   },
 ];
 
-const TeamBarChart = ({width = 400}: {width?: number}) => {
+const TeamBarChart = ({width = 500}: {width?: number}) => {
   // const { theme } = useTheme();
 
     const theme: "light" | "dark" | any = "light";
   return (
-    <Chart>
+    <Chart className="w-full">
       <ChartHeader headerTitle="Team Performance" headerElipses />
       <ChartContent className="h-full">
         <ResponsiveContainer width="100%" height={"90%"}>
-          <BarChart data={teamData} width={width} height={300} barSize={12}>
+          <BarChart data={teamData} width={width} height={390} barSize={12}>
             <CartesianGrid
               strokeDasharray="3 3"
               vertical={false}
