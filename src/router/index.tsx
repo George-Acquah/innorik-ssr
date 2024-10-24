@@ -10,7 +10,9 @@ export default function AppRouter() {
       <Route path="/" element={<RootLayout />}>
         <Route index element={<HomePage />} />
         <Route path="/about" element={<HomePage />} />
-        <Route path="/blogs" element={<BlogsPage />} />
+        <Route path="/blogs" element={<BlogsPage />}>
+        <Route path="/blogs/:slug" element={<HomePage />} />
+        </Route>
         <Route path="/contact" element={<HomePage />} />
       </Route>
       <Route path="*" element={<ExtendedError statusCode={404} />} />
