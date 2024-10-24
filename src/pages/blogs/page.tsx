@@ -1,10 +1,11 @@
 import { Button, Typography } from "@/components";
+import { mockDataFetching } from "@/lib/fetcher";
 import { Suspense, lazy } from "react";
 
 const Card = lazy(() => import("../../Card"));
 
 function BlogsPage() {
-  
+  const posts = mockDataFetching(['', '', '', ''], 2000);
   return (
     <div className="flex gap-4 flex-col w-full md:max-w-5xl lg:max-w-4xl mx-auto">
       <title>Blog Page</title>
@@ -25,7 +26,9 @@ function BlogsPage() {
       </div>
 
       <div className="grid">
-
+        <Suspense fallback={<p>Loading card component...</p>} key={'posts'}>
+          <Card />
+        </Suspense>
       </div>
     </div>
   );
