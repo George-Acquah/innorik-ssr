@@ -1,4 +1,5 @@
 import { Typography } from "./typography";
 import { Button } from "./button";
+import Image from "./image";
 
-export { Typography, Button }
+export { Typography, Button, Image }
