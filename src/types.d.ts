@@ -7,7 +7,7 @@ interface _ILinks {
 
 interface _IComment {
   body: string;
-  date: Date;
+  date: string;
 }
 
 interface _IBlog {
@@ -22,8 +22,8 @@ interface _IBlog {
     favs: number;
   };
   comments?: _IComment[];
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface _IChildren {
@@ -31,7 +31,9 @@ interface _IChildren {
 }
 
 type _TVariants = "default" | "secondary" | "destructive" | "outline";
-
+type _TRefDivElement = React.HTMLAttributes<HTMLDivElement>;
+type _TRefImageElement = React.HTMLAttributes<HTMLImageElement>;
+type _TRefPElement = React.HTMLAttributes<HTMLParagraphElement>;
 type _TSizes = "default" | "lg" | "sm" | "icon";
 type _TFieldType =
   | "text"

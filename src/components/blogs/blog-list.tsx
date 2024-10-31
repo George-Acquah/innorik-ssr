@@ -1,6 +1,7 @@
 import { use } from "react";
-import { Typography, Card, CardContent, Chip, Button } from "../ui";
-import { formatDate } from "../utils";
+import { Badge, Card, CardContent, CardFooter, Typography } from "..";
+import { formatDate } from "@/utils/root.utils";
+import { CalendarDaysIcon, HandThumbUpIcon, HeartIcon, UserIcon } from "@heroicons/react/24/outline";
 
 interface _IBlogsList {
   blogsPromise: Promise<_IBlog[]>;
@@ -10,56 +11,65 @@ const BlogsList = ({ blogsPromise }: _IBlogsList) => {
   const blogs = use(blogsPromise);
 
   return (
-    <div className="blogs-list">
-      {blogs.map(
-        (blog, index) =>
-          !blog.hidden && (
-            <Card key={index} className="blog-card">
-              <CardContent>
-                <Typography variant="h2">{blog.title}</Typography>
-                <Typography variant="subtitle1">
-                  By {blog.author} on {formatDate(blog.createdAt)}
-                </Typography>
-                <Typography variant="body1" className="blog-content">
-                  {blog.content.length > 100
-                    ? `${blog.content.substring(0, 100)}...`
-                    : blog.content}
-                </Typography>
-                <div className="tags-container">
-                  {blog.tags &&
-                    blog.tags.map((tag, tagIndex) => (
-                      <Chip key={tagIndex} label={tag} />
-                    ))}
+    <div className="grid grid-cols-[repeat(auto-fill,_minmax(280px,_1fr))] gap-4">
+      {blogs.map((blog, index) => (
+        <Card key={index} className="py-2">
+          <CardContent className="space-y-2 pb-4">
+            <div className="">
+              <Typography variant="h3">{blog.title}</Typography>
+              <Typography variant="p" className="flex gap-2">
+                <UserIcon className="w-4" />
+                {blog.author}
+              </Typography>
+            </div>
+            
+            <Typography variant="p" className="blog-content">
+              {blog.content.length > 100
+                ? `${blog.content.substring(0, 100)}...`
+                : blog.content}
+            </Typography>
+
+            <div className="flex justify-between items-center">
+              <Typography variant="p" className="flex gap-2">
+                <CalendarDaysIcon className="w-4" />
+                {formatDate(blog.createdAt)}
+              </Typography>
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-[1px]">
+                  <HandThumbUpIcon className="w-5" />
+                  <Typography variant="span" className="font-medium">
+                    {blog.meta?.votes}
+                  </Typography>
                 </div>
-                <div className="meta-info">
-                  <Button
-                    variant="outlined"
-                    onClick={() =>
-                      alert(
-                        `Votes: ${blog.meta?.votes}, Favorites: ${blog.meta?.favs}`
-                      )
-                    }
+                <div className="flex items-center gap-[1px]">
+                  <HeartIcon className="w-5" />
+                  <Typography variant="span" className="font-medium">
+                    {blog.meta?.votes}
+                  </Typography>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+
+          <CardFooter className="pb-1 space-y-2">
+            {blog.tags &&
+              blog.tags.map((tag, tagIndex) => (
+                <Badge
+                  variant={"default"}
+                  className="rounded-full "
+                  key={tagIndex}
+                >
+                  <Typography
+                    variant="span"
+                    className="text-white dark:text-white"
                   >
-                    View Meta
-                  </Button>
-                </div>
-                {blog.comments && blog.comments.length > 0 && (
-                  <div className="comments-section">
-                    <Typography variant="h3">Comments:</Typography>
-                    {blog.comments.map((comment, commentIndex) => (
-                      <div key={commentIndex} className="comment">
-                        <Typography variant="body2">{comment.body}</Typography>
-                        <Typography variant="caption">
-                          {formatDate(comment.date)}
-                        </Typography>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          )
-      )}
+                    {tag}
+                  </Typography>
+                </Badge>
+              ))}
+          </CardFooter>
+        </Card>
+      ))}
     </div>
   );
 };

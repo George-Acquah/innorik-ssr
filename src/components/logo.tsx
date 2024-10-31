@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useConfigurator } from "../utils";
-import { Typography } from "./ui";
+import { Typography } from "./";
 
 export const Logo = () => {
   return (

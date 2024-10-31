@@ -1,7 +1,7 @@
 import { PowerIcon } from "@heroicons/react/24/outline";
 import React from "react";
 import { DesktopSidebar, MobileSidebar, SidebarLink } from "..";
-import { Button, Typography } from "@/components/ui";
+import { Button, Typography } from "@/components";
 import { sidebarLinks } from "@/services";
 import { ResolvedLogo } from "@/components";
 
