@@ -1,6 +1,6 @@
 import { FC, useEffect, useLayoutEffect, useRef } from "react";
-import Quill from "quill"; // Ensure you import Quill
-import "quill/dist/quill.snow.css"; // Import Quill styles
+import Quill from "quill";
+import "quill/dist/quill.snow.css";
 
 interface BlogEditorProps {
   readOnly?: boolean;

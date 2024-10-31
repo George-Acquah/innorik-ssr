@@ -9,6 +9,7 @@ const ReactCompilerConfig = {
 
 export default defineConfig(() => {
   return {
+
     plugins: [
       react({
         babel: {

@@ -5,12 +5,25 @@ interface _ILinks {
   parent?: string;
 }
 
+interface _IComment {
+  body: string;
+  date: Date;
+}
+
 interface _IBlog {
-  id: number;
   title: string;
+  author: string;
   content: string;
-  tags: string[];
+  hidden?: boolean;
+  tags?: string[];
   category?: string;
+  meta?: {
+    votes: number;
+    favs: number;
+  };
+  comments?: _IComment[];
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 interface _IChildren {

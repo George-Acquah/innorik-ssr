@@ -1,11 +1,17 @@
 import fs from "node:fs/promises";
 import express from "express";
+import dotenv from 'dotenv';
 import { Transform } from "node:stream";
+import blogRoutes from "./src/api/routes/blogs.route.js"
+import { connectToDatabase } from './src/api/db.js'
+
+dotenv.config();
 
 const isProduction = false;
 // const isProduction = process.env.NODE_ENV === "production";
-const port = process.env.PORT || 5111;
+const port = process.env.PORT || 5000;
 const base = process.env.BASE || "/";
+
 const ABORT_DELAY = 10000;
 
 const templateHtml = isProduction
@@ -16,6 +22,16 @@ const ssrManifest = isProduction
   : undefined;
 
 const app = express();
+
+// Middleware
+app.use(express.json());
+
+// Connect to the database
+await connectToDatabase();
+
+// Use blog routes
+app.use('/api', blogRoutes);
+
 
 let vite;
 if (!isProduction) {
@@ -33,8 +49,8 @@ if (!isProduction) {
   app.use(
     base,
     sirv("./dist/client", {
-      maxAge: 31536000, // Cache assets for 1 year
-      immutable: true, // Assets are never modified
+      maxAge: 31536000,
+      immutable: true,
       extensions: [],
     })
   );
@@ -123,12 +139,11 @@ function getPageMetadata(url) {
       description: "Welcome to the Vite React App home page.",
       keywords: "vite, react, home",
     },
-    "/about": {
-      title: "About - Vite React App",
+    "/blogs": {
+      title: "Blogs - Vite React App",
       description: "Learn more about the Vite React App on the about page.",
-      keywords: "vite, react, about",
+      keywords: "vite, react, blogs",
     },
-    // Add more routes as needed...
   };
 
   return (
