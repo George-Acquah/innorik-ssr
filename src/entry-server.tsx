@@ -1,12 +1,13 @@
 import { StrictMode } from "react";
 import {
   type RenderToPipeableStreamOptions,
-  renderToPipeableStream
+  renderToPipeableStream,
 } from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server";
 import AppRouter from "./router";
 import ExtendedError, { ExtendedErrorProps } from "./components/extended-error";
 import { ConfiguratorProvider } from "./utils";
+import ModalProvider from "./utils/contexts/modal.context";
 
 interface _IRenderProps extends ExtendedErrorProps {
   path: string;
@@ -27,13 +28,14 @@ export function render(
 
   // Normal rendering logic for SSR with StaticRouter
   return renderToPipeableStream(
-    <StrictMode>
+    // <StrictMode>
       <StaticRouter location={_url}>
-        <ConfiguratorProvider>
-          <AppRouter />
-        </ConfiguratorProvider>
-      </StaticRouter>
-    </StrictMode>,
+        <ModalProvider>
+          <ConfiguratorProvider>
+            <AppRouter />
+          </ConfiguratorProvider>
+        </ModalProvider>
+      </StaticRouter>,
     options
   );
 }

@@ -1,9 +1,8 @@
-"use client";
-
 import React, { useState, forwardRef, ReactNode, useRef } from "react";
 import { CheckIcon, ChevronRightIcon } from "@heroicons/react/24/solid"; // Heroicons for icons
 import { _TButtonVariants, Button } from "./button";
 import { cn } from "@/utils";
+import { useOutsideClick } from "@/utils/hooks/useOutsideClick";
 
 // Types for the component props
 interface DropdownMenuProps {
@@ -49,8 +48,7 @@ interface DropdownMenuSubContentProps {
   style?: React.CSSProperties;
 }
 
-// Base Dropdown Menu component with Tailwind animations
-export const DropdownMenu: React.FC<DropdownMenuProps> = ({
+const DropdownMenu: React.FC<DropdownMenuProps> = ({
   trigger,
   style = {},
   children,
@@ -60,8 +58,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   const closeMenu = () => setOpen(false);
   const dropdownMenuRef = useRef<HTMLDivElement>(null);
 
-  // Use the custom hook to detect clicks outside the dropdown menu
-  // useOutsideClick(dropdownMenuRef, closeMenu);
+  useOutsideClick(dropdownMenuRef, closeMenu);
 
   return (
     <div ref={dropdownMenuRef} className="relative inline-block text-left">
@@ -89,8 +86,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   );
 };
 
-// Dropdown Menu Trigger component
-export const DropdownMenuTrigger = forwardRef<
+const DropdownMenuTrigger = forwardRef<
   HTMLButtonElement,
   _IDropDownTriggerProps
 >(({ className, size, variant, children, ...props }, ref) => (
@@ -106,16 +102,14 @@ export const DropdownMenuTrigger = forwardRef<
 ));
 DropdownMenuTrigger.displayName = "DropdownMenuTrigger";
 
-// Dropdown Menu Content component
-export const DropdownMenuContent: React.FC<{
+const DropdownMenuContent: React.FC<{
   className?: string;
   children: ReactNode;
 }> = ({ className, children }) => (
   <div className={cn("py-1", className)}>{children}</div>
 );
 
-// Dropdown Menu Item component with Tailwind hover and tap animations
-export const DropdownMenuItem = forwardRef<HTMLDivElement, DropdownItemProps>(
+const DropdownMenuItem = forwardRef<HTMLDivElement, DropdownItemProps>(
   ({ className, inset, children, ...props }, ref) => (
     <div
       ref={ref}
@@ -133,8 +127,7 @@ export const DropdownMenuItem = forwardRef<HTMLDivElement, DropdownItemProps>(
 );
 DropdownMenuItem.displayName = "DropdownMenuItem";
 
-// Dropdown Menu Checkbox Item
-export const DropdownMenuCheckboxItem = forwardRef<
+const DropdownMenuCheckboxItem = forwardRef<
   HTMLDivElement,
   DropdownCheckboxItemProps
 >(({ className, children, checkboxClassName, checked, ...props }, ref) => (
@@ -159,8 +152,7 @@ export const DropdownMenuCheckboxItem = forwardRef<
 ));
 DropdownMenuCheckboxItem.displayName = "DropdownMenuCheckboxItem";
 
-// Dropdown Menu Radio Item
-export const DropdownMenuRadioItem = forwardRef<
+const DropdownMenuRadioItem = forwardRef<
   HTMLDivElement,
   DropdownRadioItemProps
 >(({ className, radioClassName, children, ...props }, ref) => (
@@ -184,8 +176,7 @@ export const DropdownMenuRadioItem = forwardRef<
 ));
 DropdownMenuRadioItem.displayName = "DropdownMenuRadioItem";
 
-// Dropdown Menu Sub Trigger
-export const DropdownMenuSubTrigger = forwardRef<
+const DropdownMenuSubTrigger = forwardRef<
   HTMLDivElement,
   _IDropdownSubMenuProps
 >(
@@ -220,8 +211,7 @@ export const DropdownMenuSubTrigger = forwardRef<
 );
 DropdownMenuSubTrigger.displayName = "DropdownMenuSubTrigger";
 
-// Dropdown Menu Sub Content
-export const DropdownMenuSubContent: React.FC<DropdownMenuSubContentProps> = ({
+const DropdownMenuSubContent: React.FC<DropdownMenuSubContentProps> = ({
   style,
   position,
   className,
@@ -239,13 +229,11 @@ export const DropdownMenuSubContent: React.FC<DropdownMenuSubContentProps> = ({
   </div>
 );
 
-// Dropdown Menu Separator
-export const DropdownMenuSeparator: React.FC = () => (
+const DropdownMenuSeparator: React.FC = () => (
   <div className="border-t border-gray-200 my-1"></div>
 );
 
-// Dropdown Menu Label
-export const DropdownMenuLabel: React.FC<DropdownMenuLabelProps> = ({
+const DropdownMenuLabel: React.FC<DropdownMenuLabelProps> = ({
   className,
   inset,
   children,
@@ -262,7 +250,7 @@ export const DropdownMenuLabel: React.FC<DropdownMenuLabelProps> = ({
 );
 
 // Shortcut key helper
-export const DropdownMenuShortcut: React.FC<DropdownItemProps> = ({
+const DropdownMenuShortcut: React.FC<DropdownItemProps> = ({
   className,
   children,
 }) => (
@@ -270,3 +258,17 @@ export const DropdownMenuShortcut: React.FC<DropdownItemProps> = ({
     {children}
   </span>
 );
+
+export {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuSeparator,
+  DropdownMenuCheckboxItem,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuRadioItem,
+  DropdownMenuShortcut,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+};

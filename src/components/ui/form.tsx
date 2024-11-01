@@ -1,7 +1,6 @@
 import { cn } from "@/utils";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import React from "react";
-// import { SvgSpinner } from "./icons";
 
 type _TFormButtonProps = React.ComponentPropsWithoutRef<"button"> & {
   text: string;

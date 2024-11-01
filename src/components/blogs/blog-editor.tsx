@@ -1,78 +1,145 @@
-import { FC, useEffect, useLayoutEffect, useRef } from "react";
-import Quill from "quill";
+import {
+  FC,
+  RefObject,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
+import type QuillType from "quill"; // Import as a type only
 import "quill/dist/quill.snow.css";
+import { EmitterSource } from "quill/core";
 
 interface BlogEditorProps {
   readOnly?: boolean;
-  defaultValue?: any; // Quill's Delta type or string (for HTML)
-  onTextChange?: (delta: any, oldDelta: any, source: any) => void;
-  onSelectionChange?: (range: any, oldRange: any, source: any) => void;
-  quillRef: Quill | null;
+  defaultValue?: any;
+  onTextChange?: (delta: string) => void;
+  onSelectionChange?: (
+    range: any,
+    oldRange: any,
+    source: EmitterSource
+  ) => void;
+  quillRef: RefObject<QuillType | null>;
 }
 
 const BlogEditor: FC<BlogEditorProps> = ({
-  quillRef: ref,
+  quillRef,
   readOnly = false,
   defaultValue,
   onTextChange,
   onSelectionChange,
 }) => {
+  const [loading, setLoading] = useState(true);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const defaultValueRef = useRef(defaultValue);
   const onTextChangeRef = useRef(onTextChange);
   const onSelectionChangeRef = useRef(onSelectionChange);
 
+  const toolbarOptions = [
+    ["bold", "italic", "underline", "strike", "link"],
+
+    [{ list: "ordered" }, { list: "bullet" }],
+    [{ script: "sub" }, { script: "super" }],
+    [{ indent: "-1" }, { indent: "+1" }],
+
+    [{ size: ["small", false, "large", "huge"] }],
+
+    [{ textTransform: [false, "uppercase", "lowercase", "capitalize"] }],
+
+    [{ color: [] }, { background: [] }],
+    [{ font: [] }],
+    [{ align: [] }],
+
+    ["clean"],
+  ];
+
+  const formats = [
+    "align",
+    "header",
+    "font",
+    "size",
+    "bold",
+    "italic",
+    "underline",
+    "background",
+    "strike",
+    "blockquote",
+    "list",
+    "indent",
+    "color",
+    "script",
+  ];
+
   useLayoutEffect(() => {
     onTextChangeRef.current = onTextChange;
     onSelectionChangeRef.current = onSelectionChange;
-  });
+  }, [onTextChange, onSelectionChange]);
 
   useEffect(() => {
-    if (ref) {
-      ref.enable(!readOnly);
-    }
-  }, [ref, readOnly]);
+    const loadQuill = async () => {
+      if (quillRef.current) return;
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+      const { default: Quill } = await import("quill");
+      if (!containerRef.current) return;
 
-    const editorContainer = container.appendChild(
-      container.ownerDocument.createElement("div")
-    );
+      const editorContainer = containerRef.current.appendChild(
+        containerRef.current.ownerDocument.createElement("div")
+      );
 
-    const quill = new Quill(editorContainer, {
-      theme: "snow",
-      readOnly: readOnly,
-    });
+      const modules = {
+        toolbar: {
+          container: toolbarOptions,
+          handlers: {
+            textTransform: (_opt: any) => {},
+          },
+        },
+        clipboard: {
+          matchVisual: false,
+        },
+      };
 
-    if (ref) {
-      ref = quill;
-    }
+      const quill = new Quill(editorContainer, {
+        theme: "snow",
+        modules,
+        formats,
+        placeholder: defaultValue,
+        readOnly,
+      });
 
-    if (defaultValueRef.current) {
-      quill.setContents(defaultValueRef.current);
-    }
+      quillRef.current = quill;
 
-    quill.on(Quill.events.TEXT_CHANGE, (...args) => {
-      if (onTextChangeRef.current) {
-        onTextChangeRef.current(...args);
+      if (defaultValueRef.current) {
+        quill.setContents(defaultValueRef.current);
       }
-    });
 
-    quill.on(Quill.events.SELECTION_CHANGE, (...args) => {
-      if (onSelectionChangeRef.current) {
-        onSelectionChangeRef.current(...args);
-      }
-    });
+      quill.on("text-change", () => {
+        if (onTextChangeRef.current) {
+          const htmlContent = quill.root.innerHTML; // Convert to HTML
+          onTextChangeRef.current(htmlContent);
+        }
+      });
+
+      quill.on("selection-change", (...args) => {
+        if (onSelectionChangeRef.current) {
+          onSelectionChangeRef.current(...args);
+        }
+      });
+    };
+
+    loadQuill();
+    setLoading(false);
 
     return () => {
-      if (ref) {
-        ref = null;
+      quillRef.current = null;
+      if (containerRef.current) {
+        containerRef.current.innerHTML = "";
       }
-      container.innerHTML = "";
     };
-  }, [readOnly, ref]);
+  }, [quillRef, readOnly]);
+
+  if (loading) {
+    return <p>Loading quilll component...</p>;
+  }
 
   return <div ref={containerRef}></div>;
 };

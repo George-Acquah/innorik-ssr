@@ -106,3 +106,29 @@ export function formatDate(dateString: string): string {
 export function addSpaceBeforeCapitalLetters(input: string): string {
   return input.replace(/([A-Z])/g, " $1").trim();
 }
+
+export const extractImagesFromData = (data: Record<string, any>): string[] => {
+  for (const key in data) {
+    if (data.hasOwnProperty(key) && key.toLowerCase().includes("image")) {
+      const value = data[key];
+      if (typeof value === "string") {
+        return [value];
+      }
+      if (Array.isArray(value)) {
+        return value;
+      }
+    }
+  }
+  return [];
+};
+
+export const groupFieldConfigs = (fields: _IDetail[]) => {
+  return fields.reduce((groups, field) => {
+    const group = field.group || "default"; // Use 'default' if no group is specified
+    if (!groups[group]) {
+      groups[group] = [];
+    }
+    groups[group].push(field);
+    return groups;
+  }, {} as Record<string, _IDetail[]>);
+};

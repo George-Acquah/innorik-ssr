@@ -1,4 +1,5 @@
-import { BlogsList, Button, Typography } from "@/components";
+import { BlogsList, Typography } from "@/components";
+import BlogActions from "@/components/blogs/blogs-action";
 import { fetcher } from "@/lib/fetcher";
 import { Suspense } from "react";
 
@@ -11,13 +12,18 @@ function BlogsPage() {
       <div className="flex justify-between items-center">
         <Typography variant="h2">Welcome to My Blog</Typography>
 
-        <Button variant="secondary" size="sm" className="px-6">
-          Create a blog
-        </Button>
+        <BlogActions
+          type="create"
+          trigger={
+            <div className="px-6 bg-secondary rounded-md py-1 text-white">
+              Create a blog
+            </div>
+          }
+        />
       </div>
 
-      <Suspense key={'blogs-lists'} fallback={ <h3>loading blogs ...</h3>}>
-        <BlogsList blogsPromise={blogsDataPromise}/>
+      <Suspense key={"blogs-lists"} fallback={<h3>loading blogs ...</h3>}>
+        <BlogsList blogsPromise={blogsDataPromise} />
       </Suspense>
     </div>
   );

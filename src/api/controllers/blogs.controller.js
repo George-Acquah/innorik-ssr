@@ -1,6 +1,5 @@
 import Blog from "../models/blogs.model.js";
 
-// Handler to create a new blog post
 export const createBlog = async (req, res) => {
   try {
     const {
