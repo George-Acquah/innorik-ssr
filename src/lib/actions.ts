@@ -5,5 +5,7 @@ export async function createBlog(prevState: _TActionResult, payload: FormData): 
   console.log(prevState);
   console.log(paylodObj);
 
+  try
+
   return { message: "User created successfully!", type: "success" };
 }

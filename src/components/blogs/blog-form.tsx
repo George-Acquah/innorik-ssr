@@ -1,6 +1,6 @@
 import { addBlogFields } from "@/services/data/blogs.data";
 import Forms from "../shared/commonForm";
-import { createBlog } from "@/lib/actions";
+import { createBlog } from "@/lib/server-actions";
 
 interface _ITableFormProps {
   type: "create" | "update";
@@ -14,7 +14,6 @@ export const BlogsForm: React.FC<_ITableFormProps> = ({ type, data, id }) => {
       action={type === 'create' ? createBlog : undefined}
       actionType={type}
       data={data}
-      includeFiles
       id={type === "create" ? undefined : id}
       type="Blog"
       formType="single"

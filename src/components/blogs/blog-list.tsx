@@ -1,6 +1,6 @@
 import { use } from "react";
 import { Badge, Card, CardContent, CardFooter, Typography } from "..";
-import { formatDate } from "@/utils/root.utils";
+import { formatDate, stripHtmlTags } from "@/utils/root.utils";
 import { CalendarDaysIcon, HandThumbUpIcon, HeartIcon, UserIcon } from "@heroicons/react/24/outline";
 import { NavLink } from "react-router-dom";
 
@@ -25,9 +25,9 @@ const BlogsList = ({ blogsPromise }: _IBlogsList) => {
             </div>
 
             <Typography variant="p" className="h-16">
-              {blog.content.length > 100
-                ? `${blog.content.substring(0, 100)}...`
-                : blog.content}
+              {blog.content.length > 60
+                ? `${stripHtmlTags(blog.content).substring(0, 60)}...`
+                : stripHtmlTags(blog.content)}
             </Typography>
 
             <div className="flex justify-between items-center">
@@ -52,7 +52,13 @@ const BlogsList = ({ blogsPromise }: _IBlogsList) => {
             </div>
           </CardContent>
 
-          <CardFooter className="pb-1 flex-1">
+          <CardFooter className="pb-1 flex-1 flex justify-between items-center">
+            <NavLink
+              to={`/blogs/${blog._id}`}
+              className="text-blue-500 hover:underline"
+            >
+              Read more
+            </NavLink>
             {blog.tags &&
               blog.tags.map((tag, tagIndex) => (
                 <Badge
@@ -68,12 +74,6 @@ const BlogsList = ({ blogsPromise }: _IBlogsList) => {
                   </Typography>
                 </Badge>
               ))}
-            <NavLink
-              to={`/blogs/${blog._id}`}
-              className="text-blue-500 hover:underline"
-            >
-              Read more
-            </NavLink>
           </CardFooter>
         </Card>
       ))}

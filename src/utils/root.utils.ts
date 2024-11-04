@@ -132,3 +132,7 @@ export const groupFieldConfigs = (fields: _IDetail[]) => {
     return groups;
   }, {} as Record<string, _IDetail[]>);
 };
+
+export function stripHtmlTags(html: string) {
+  return html.replace(/<[^>]*>?/gm, "");
+}

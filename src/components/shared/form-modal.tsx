@@ -123,7 +123,7 @@ const FormModal = ({
       </ModalTrigger>
       <ModalBody
         modalKey={`blog-${type}-${id}`}
-        className={`md:max-w-[50%] 2xl:max-w-[40%] ${
+        className={`md:max-w-[35%] ${
           type === "delete" ? "md:min-h-[20%] h-10rem" : ""
         }`}
       >
