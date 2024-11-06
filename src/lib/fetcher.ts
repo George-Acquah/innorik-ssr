@@ -9,7 +9,8 @@ export const fetcher = async <T>(
   options: FetcherOptions = {}
 ): Promise<T> => {
   try {
-    const baseUrl = import.meta.env.VITE_BASE_URI;
+    const baseUrl = 'http://localhost:5000'
+
     const response = await fetch(`${baseUrl}/${url}`, {
       ...options,
       headers: {

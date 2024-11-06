@@ -1,6 +1,6 @@
 import { use } from "react";
 import { Badge, Card, CardContent, CardFooter, Typography } from "..";
-import { formatDate, stripHtmlTags } from "@/utils/root.utils";
+import { formatDate, stripHtmlTags, truncateMessage } from "@/utils/root.utils";
 import { CalendarDaysIcon, HandThumbUpIcon, HeartIcon, UserIcon } from "@heroicons/react/24/outline";
 import { NavLink } from "react-router-dom";
 
@@ -20,7 +20,7 @@ const BlogsList = ({ blogsPromise }: _IBlogsList) => {
               <Typography variant="h3">{blog.title}</Typography>
               <Typography variant="p" className="flex gap-2">
                 <UserIcon className="w-4" />
-                {blog.author}
+                {truncateMessage(blog.author, 20)}
               </Typography>
             </div>
 
